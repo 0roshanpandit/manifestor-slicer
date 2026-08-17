@@ -1,0 +1,8 @@
+{
+  "id":"manifestor-core",
+  "name":"Manifestor Core",
+  "bed":{"x":300,"y":300,"z":300},
+  "nozzleDiameters":[0.4,0.6,0.8],
+  "firmware":"klipper",
+  "gcodeFlavor":"marlin"
+}

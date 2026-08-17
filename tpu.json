@@ -1,0 +1,1 @@
+{"id":"tpu","name":"TPU","nozzle":{"min":210,"max":240,"default":225},"bed":{"min":40,"max":60,"default":50},"density":1.21}

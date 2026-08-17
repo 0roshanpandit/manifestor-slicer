@@ -1,0 +1,8 @@
+{
+  "id":"creality-k1c",
+  "name":"Creality K1C",
+  "bed":{"x":220,"y":220,"z":250},
+  "nozzleDiameters":[0.4,0.6,0.8],
+  "firmware":"klipper",
+  "gcodeFlavor":"marlin"
+}

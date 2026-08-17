@@ -1,0 +1,1 @@
+{"id":"abs","name":"ABS","nozzle":{"min":235,"max":270,"default":250},"bed":{"min":90,"max":110,"default":100},"density":1.04}

@@ -1,0 +1,8 @@
+{
+  "id":"creality-k2plus",
+  "name":"Creality K2 Plus",
+  "bed":{"x":350,"y":350,"z":350},
+  "nozzleDiameters":[0.4,0.6,0.8],
+  "firmware":"klipper",
+  "gcodeFlavor":"marlin"
+}

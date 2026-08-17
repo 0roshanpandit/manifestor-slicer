@@ -1,0 +1,1 @@
+{"id":"petg","name":"PETG","nozzle":{"min":220,"max":250,"default":240},"bed":{"min":65,"max":85,"default":75},"density":1.27}
