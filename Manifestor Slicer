@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manifestor Slicer</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#111318;
+    color:#fff;
+    overflow:hidden;
+}
+
+.header{
+    height:64px;
+    background:#181b21;
+    border-bottom:1px solid #2b2f38;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 22px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:21px;
+    font-weight:bold;
+}
+
+.logoIcon{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    background:linear-gradient(135deg,#ff6b00,#ff9d00);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    color:white;
+}
+
+.brandSmall{
+    font-size:11px;
+    color:#8f96a3;
+    margin-top:2px;
+}
+
+.headerRight{
+    display:flex;
+    gap:10px;
+}
+
+.headerBtn{
+    background:#242832;
+    color:#fff;
+    border:1px solid #353a45;
+    border-radius:8px;
+    padding:9px 15px;
+    cursor:pointer;
+}
+
+.headerBtn:hover{
+    background:#303541;
+}
+
+.main{
+    height:calc(100vh - 64px);
+    display:flex;
+}
+
+.sidebar{
+    width:310px;
+    background:#181b21;
+    border-right:1px solid #2b2f38;
+    overflow-y:auto;
+    padding:18px;
+}
+
+.workspace{
+    flex:1;
+    position:relative;
+    background:#0d0f13;
+}
+
+.section{
+    margin-bottom:22px;
+}
+
+.sectionTitle{
+    font-size:12px;
+    color:#8f96a3;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:10px;
+}
+
+.select,
+.input{
+    width:100%;
+    background:#232730;
+    color:#fff;
+    border:1px solid #363b46;
+    border-radius:7px;
+    padding:11px;
+    outline:none;
+}
+
+.input:focus,
+.select:focus{
+    border-color:#ff7a00;
+}
+
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin-bottom:9px;
+}
+
+.control{
+    margin-bottom:12px;
+}
+
+.label{
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    color:#c4c8d0;
+    margin-bottom:6px;
+}
+
+.range{
+    width:100%;
+    accent-color:#ff7600;
+}
+
+.value{
+    color:#ff8a21;
+}
+
+.upload{
+    border:2px dashed #3a404c;
+    border-radius:10px;
+    padding:25px 12px;
+    text-align:center;
+    cursor:pointer;
+    background:#20242c;
+}
+
+.upload:hover{
+    border-color:#ff7600;
+}
+
+.uploadIcon{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.uploadTitle{
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
+.uploadText{
+    color:#858c98;
+    font-size:12px;
+}
+
+#fileInput{
+    display:none;
+}
+
+.bottomActions{
+    display:flex;
+    gap:10px;
+}
+
+.sliceBtn{
+    flex:1;
+    border:none;
+    border-radius:9px;
+    padding:13px;
+    background:linear-gradient(135deg,#ff6500,#ff9b00);
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.sliceBtn:hover{
+    opacity:.9;
+}
+
+.resetBtn{
+    width:45px;
+    border:1px solid #363b46;
+    background:#232730;
+    color:white;
+    border-radius:9px;
+    cursor:pointer;
+}
+
+.viewport{
+    position:absolute;
+    inset:0;
+}
+
+.empty{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    pointer-events:none;
+}
+
+.emptyIcon{
+    width:90px;
+    height:90px;
+    border-radius:20px;
+    background:#1d2129;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:42px;
+    margin-bottom:18px;
+}
+
+.empty h2{
+    font-size:21px;
+    margin-bottom:8px;
+}
+
+.empty p{
+    color:#777f8d;
+    font-size:13px;
+}
+
+.status{
+    position:absolute;
+    left:18px;
+    bottom:18px;
+    background:#191d24;
+    border:1px solid #303540;
+    padding:9px 13px;
+    border-radius:8px;
+    font-size:12px;
+    color:#aeb4bf;
+}
+
+.status span{
+    color:#ff8a21;
+}
+
+.infoPanel{
+    position:absolute;
+    right:18px;
+    top:18px;
+    background:#191d24;
+    border:1px solid #303540;
+    border-radius:10px;
+    padding:13px;
+    width:190px;
+    display:none;
+}
+
+.infoTitle{
+    font-size:12px;
+    color:#888f9c;
+    margin-bottom:8px;
+}
+
+.infoRow{
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    padding:5px 0;
+}
+
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#252a33;
+    border:1px solid #3b414c;
+    padding:12px 17px;
+    border-radius:8px;
+    display:none;
+    z-index:20;
+}
+
+@media(max-width:800px){
+    .sidebar{
+        width:250px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">
+        <div class="logoIcon">M</div>
+        <div>
+            Manifestor Slicer
+            <div class="brandSmall">Web 3D Printing Platform</div>
+        </div>
+    </div>
+
+    <div class="headerRight">
+        <button class="headerBtn" onclick="newProject()">New Project</button>
+        <button class="headerBtn" onclick="showCloud()">Cloud</button>
+    </div>
+
+</header>
+
+
+<div class="main">
+
+<aside class="sidebar">
+
+    <div class="section">
+
+        <div class="sectionTitle">Model</div>
+
+        <label class="upload" for="fileInput">
+
+            <div class="uploadIcon">＋</div>
+
+            <div class="uploadTitle">
+                Upload 3D Model
+            </div>
+
+            <div class="uploadText">
+                STL file supported
+            </div>
+
+        </label>
+
+        <input id="fileInput" type="file" accept=".stl">
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="sectionTitle">Printer</div>
+
+        <select class="select" id="printer">
+
+            <option>Manifestor Core</option>
+            <option>Creality K1C</option>
+            <option>Creality K2 Plus</option>
+            <option>Creality Ender 3</option>
+            <option>Bambu Lab P1S</option>
+            <option>Bambu Lab X1 Carbon</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="sectionTitle">Filament</div>
+
+        <select class="select" id="filament">
+
+            <option>PLA</option>
+            <option>PETG</option>
+            <option>ABS</option>
+            <option>TPU</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="sectionTitle">Quality</div>
+
+        <div class="control">
+
+            <div class="label">
+                <span>Layer Height</span>
+                <span class="value" id="layerValue">0.20 mm</span>
+            </div>
+
+            <input
+                class="range"
+                id="layer"
+                type="range"
+                min="0.08"
+                max="0.40"
+                step="0.01"
+                value="0.20"
+            >
+
+        </div>
+
+
+        <div class="control">
+
+            <div class="label">
+                <span>Infill</span>
+                <span class="value" id="infillValue">20%</span>
+            </div>
+
+            <input
+                class="range"
+                id="infill"
+                type="range"
+                min="0"
+                max="100"
+                step="5"
+                value="20"
+            >
+
+        </div>
+
+
+        <div class="control">
+
+            <div class="label">
+                <span>Wall Count</span>
+                <span class="value" id="wallValue">3</span>
+            </div>
+
+            <input
+                class="range"
+                id="wall"
+                type="range"
+                min="1"
+                max="8"
+                value="3"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="sectionTitle">Speed</div>
+
+        <div class="control">
+
+            <div class="label">
+                <span>Print Speed</span>
+                <span class="value" id="speedValue">100 mm/s</span>
+            </div>
+
+            <input
+                class="range"
+                id="speed"
+                type="range"
+                min="20"
+                max="300"
+                step="5"
+                value="100"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="sectionTitle">Supports</div>
+
+        <select class="select" id="supports">
+
+            <option>Disabled</option>
+            <option>Everywhere</option>
+            <option>Build Plate Only</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="bottomActions">
+
+        <button class="sliceBtn" onclick="sliceModel()">
+            SLICE MODEL
+        </button>
+
+        <button class="resetBtn" onclick="resetModel()">
+            ↻
+        </button>
+
+    </div>
+
+</aside>
+
+
+<main class="workspace">
+
+    <div id="viewport" class="viewport"></div>
+
+
+    <div id="empty" class="empty">
+
+        <div class="emptyIcon">
+            ◇
+        </div>
+
+        <h2>Ready to Print</h2>
+
+        <p>
+            Upload an STL model to start
+        </p>
+
+    </div>
+
+
+    <div id="infoPanel" class="infoPanel">
+
+        <div class="infoTitle">
+            MODEL INFORMATION
+        </div>
+
+        <div class="infoRow">
+            <span>File</span>
+            <span id="fileName">-</span>
+        </div>
+
+        <div class="infoRow">
+            <span>Size</span>
+            <span id="modelSize">-</span>
+        </div>
+
+        <div class="infoRow">
+            <span>Triangles</span>
+            <span id="triangles">-</span>
+        </div>
+
+    </div>
+
+
+    <div class="status">
+        Status:
+        <span id="statusText">Waiting for model</span>
+    </div>
+
+</main>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script type="importmap">
+{
+    "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+    }
+}
+</script>
+
+
+<script type="module">
+
+import * as THREE from "three";
+import { STLLoader } from "three/addons/loaders/STLLoader.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+
+let scene;
+let camera;
+let renderer;
+let controls;
+let mesh = null;
+
+const viewport = document.getElementById("viewport");
+
+
+function init(){
+
+    scene = new THREE.Scene();
+
+    scene.background = new THREE.Color(0x0d0f13);
+
+
+    camera = new THREE.PerspectiveCamera(
+        45,
+        viewport.clientWidth / viewport.clientHeight,
+        0.1,
+        10000
+    );
+
+    camera.position.set(120,120,120);
+
+
+    renderer = new THREE.WebGLRenderer({
+        antialias:true
+    });
+
+    renderer.setPixelRatio(window.devicePixelRatio);
+
+    renderer.setSize(
+        viewport.clientWidth,
+        viewport.clientHeight
+    );
+
+    viewport.appendChild(renderer.domElement);
+
+
+    controls = new OrbitControls(
+        camera,
+        renderer.domElement
+    );
+
+    controls.enableDamping = true;
+
+    controls.dampingFactor = 0.08;
+
+
+    const ambient = new THREE.AmbientLight(
+        0xffffff,
+        2
+    );
+
+    scene.add(ambient);
+
+
+    const light = new THREE.DirectionalLight(
+        0xffffff,
+        3
+    );
+
+    light.position.set(
+        100,
+        150,
+        100
+    );
+
+    scene.add(light);
+
+
+    const grid = new THREE.GridHelper(
+        200,
+        20,
+        0x444444,
+        0x25282f
+    );
+
+    scene.add(grid);
+
+
+    window.addEventListener(
+        "resize",
+        resize
+    );
+
+
+    animate();
+
+}
+
+
+function animate(){
+
+    requestAnimationFrame(animate);
+
+    controls.update();
+
+    renderer.render(
+        scene,
+        camera
+    );
+
+}
+
+
+function resize(){
+
+    camera.aspect =
+        viewport.clientWidth /
+        viewport.clientHeight;
+
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(
+        viewport.clientWidth,
+        viewport.clientHeight
+    );
+
+}
+
+
+document
+.getElementById("fileInput")
+.addEventListener("change", function(event){
+
+    const file = event.target.files[0];
+
+    if(!file) return;
+
+    loadSTL(file);
+
+});
+
+
+function loadSTL(file){
+
+    const loader = new STLLoader();
+
+    const reader = new FileReader();
+
+
+    reader.onload = function(event){
+
+        try{
+
+            const geometry =
+                loader.parse(event.target.result);
+
+
+            geometry.computeBoundingBox();
+
+            geometry.center();
+
+
+            if(mesh){
+
+                scene.remove(mesh);
+
+                mesh.geometry.dispose();
+
+                mesh.material.dispose();
+
+            }
+
+
+            const material =
+                new THREE.MeshStandardMaterial({
+
+                    color:0xff7a00,
+
+                    metalness:0.15,
+
+                    roughness:0.65
+
+                });
+
+
+            mesh =
+                new THREE.Mesh(
+                    geometry,
+                    material
+                );
+
+
+            scene.add(mesh);
+
+
+            const box =
+                new THREE.Box3()
+                .setFromObject(mesh);
+
+
+            const size =
+                box.getSize(
+                    new THREE.Vector3()
+                );
+
+
+            const maxSize =
+                Math.max(
+                    size.x,
+                    size.y,
+                    size.z
+                );
+
+
+            const scale =
+                80 / maxSize;
+
+
+            mesh.scale.set(
+                scale,
+                scale,
+                scale
+            );
+
+
+            centerCamera(mesh);
+
+
+            document
+                .getElementById("empty")
+                .style.display="none";
+
+
+            document
+                .getElementById("infoPanel")
+                .style.display="block";
+
+
+            document
+                .getElementById("fileName")
+                .textContent =
+                file.name.substring(0,20);
+
+
+            document
+                .getElementById("modelSize")
+                .textContent =
+                Math.round(size.x) +
+                " × " +
+                Math.round(size.y) +
+                " × " +
+                Math.round(size.z) +
+                " mm";
+
+
+            document
+                .getElementById("triangles")
+                .textContent =
+                geometry.attributes.position.count / 3;
+
+
+            document
+                .getElementById("statusText")
+                .textContent =
+                "Model loaded";
+
+
+            showToast(
+                "STL loaded successfully"
+            );
+
+        }
+        catch(error){
+
+            console.error(error);
+
+            showToast(
+                "Could not load STL file"
+            );
+
+        }
+
+    };
+
+
+    reader.readAsArrayBuffer(file);
+
+}
+
+
+function centerCamera(object){
+
+    const box =
+        new THREE.Box3()
+        .setFromObject(object);
+
+    const center =
+        box.getCenter(
+            new THREE.Vector3()
+        );
+
+    const size =
+        box.getSize(
+            new THREE.Vector3()
+        );
+
+
+    const maxSize =
+        Math.max(
+            size.x,
+            size.y,
+            size.z
+        );
+
+
+    camera.position.set(
+        maxSize * 1.5,
+        maxSize * 1.5,
+        maxSize * 1.5
+    );
+
+
+    controls.target.copy(center);
+
+    controls.update();
+
+}
+
+
+window.sliceModel = function(){
+
+    if(!mesh){
+
+        showToast(
+            "First upload an STL model"
+        );
+
+        return;
+
+    }
+
+
+    const layer =
+        document.getElementById("layer").value;
+
+    const infill =
+        document.getElementById("infill").value;
+
+    const wall =
+        document.getElementById("wall").value;
+
+    const speed =
+        document.getElementById("speed").value;
+
+    const filament =
+        document.getElementById("filament").value;
+
+
+    document
+        .getElementById("statusText")
+        .textContent =
+        "Preparing slice...";
+
+
+    showToast(
+        "Slicing settings prepared"
+    );
+
+
+    setTimeout(()=>{
+
+        document
+            .getElementById("statusText")
+            .textContent =
+            "Ready for slicing engine";
+
+
+        showToast(
+            "Next step: connect CuraEngine"
+        );
+
+    },1200);
+
+
+    console.log({
+
+        layerHeight:layer,
+
+        infill:infill,
+
+        walls:wall,
+
+        speed:speed,
+
+        filament:filament
+
+    });
+
+};
+
+
+window.resetModel = function(){
+
+    if(mesh){
+
+        scene.remove(mesh);
+
+        mesh.geometry.dispose();
+
+        mesh.material.dispose();
+
+        mesh = null;
+
+    }
+
+
+    document
+        .getElementById("empty")
+        .style.display="block";
+
+
+    document
+        .getElementById("infoPanel")
+        .style.display="none";
+
+
+    document
+        .getElementById("statusText")
+        .textContent =
+        "Waiting for model";
+
+
+    document
+        .getElementById("fileInput")
+        .value="";
+
+
+    showToast(
+        "Project reset"
+    );
+
+};
+
+
+window.newProject = function(){
+
+    resetModel();
+
+};
+
+
+window.showCloud = function(){
+
+    showToast(
+        "Manifestor Cloud coming soon"
+    );
+
+};
+
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.style.display="block";
+
+
+    setTimeout(()=>{
+
+        toast.style.display="none";
+
+    },2500);
+
+}
+
+
+document
+.getElementById("layer")
+.addEventListener("input",function(){
+
+    document
+        .getElementById("layerValue")
+        .textContent =
+        this.value + " mm";
+
+});
+
+
+document
+.getElementById("infill")
+.addEventListener("input",function(){
+
+    document
+        .getElementById("infillValue")
+        .textContent =
+        this.value + "%";
+
+});
+
+
+document
+.getElementById("wall")
+.addEventListener("input",function(){
+
+    document
+        .getElementById("wallValue")
+        .textContent =
+        this.value;
+
+});
+
+
+document
+.getElementById("speed")
+.addEventListener("input",function(){
+
+    document
+        .getElementById("speedValue")
+        .textContent =
+        this.value + " mm/s";
+
+});
+
+
+init();
+
+</script>
+
+</body>
+</html>
