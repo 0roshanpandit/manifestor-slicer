@@ -3,42 +3,54 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Manifestor Slicer</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Manifestor Slicer V3</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+box-sizing:border-box;
+margin:0;
+padding:0
+}
 
 body{
-font-family:Inter,Arial,sans-serif;
-background:#0d0f13;
+font-family:Inter,Segoe UI,Arial,sans-serif;
+background:#0b0e12;
 color:#fff;
 overflow:hidden
 }
 
-button,select,input{font:inherit}
+button,input,select{
+font:inherit
+}
+
+button{
+cursor:pointer
+}
+
+/* HEADER */
 
 .header{
-height:64px;
-background:#181b21;
+height:62px;
+background:#171a20;
 border-bottom:1px solid #292e37;
 display:flex;
 align-items:center;
 justify-content:space-between;
-padding:0 18px
+padding:0 16px
 }
 
 .logo{
 display:flex;
 align-items:center;
-gap:11px
+gap:10px
 }
 
 .logoIcon{
-width:38px;
-height:38px;
-border-radius:10px;
-background:linear-gradient(135deg,#ff6500,#ff9d00);
+width:37px;
+height:37px;
+border-radius:9px;
+background:linear-gradient(135deg,#ff6500,#ff9b00);
 display:flex;
 align-items:center;
 justify-content:center;
@@ -47,109 +59,146 @@ font-weight:800
 }
 
 .logoName{
-font-size:20px;
-font-weight:700
+font-size:18px;
+font-weight:750
 }
 
 .logoSub{
-font-size:10px;
-color:#858c98;
+font-size:9px;
+color:#7f8794;
+letter-spacing:.7px;
 margin-top:2px
 }
 
-.headerRight{
+.topTools{
 display:flex;
-gap:8px
+align-items:center;
+gap:5px
 }
 
-.topBtn{
-background:#242933;
-border:1px solid #353b46;
+.toolBtn{
+height:36px;
+min-width:40px;
+padding:0 11px;
+background:#22262e;
+border:1px solid #343a45;
+border-radius:7px;
+color:#dce0e6
+}
+
+.toolBtn:hover{
+background:#2b3039
+}
+
+.toolBtn.active{
+background:#ff7200;
+border-color:#ff7200;
+color:white
+}
+
+.divider{
+width:1px;
+height:25px;
+background:#343943;
+margin:0 5px
+}
+
+.primary{
+background:linear-gradient(135deg,#ff6400,#ff9700);
+border:0;
 color:white;
-padding:9px 14px;
-border-radius:8px;
-cursor:pointer
+font-weight:750
 }
 
-.topBtn:hover{background:#303641}
+/* LAYOUT */
 
 .layout{
-height:calc(100vh - 64px);
+height:calc(100vh - 62px);
 display:flex
 }
 
-.sidebar{
-width:315px;
-background:#181b21;
+/* LEFT PANEL */
+
+.leftPanel{
+width:305px;
+background:#171a20;
 border-right:1px solid #292e37;
 overflow-y:auto;
-padding:16px
-}
-
-.workspace{
-position:relative;
-flex:1;
-min-width:0;
-background:#0c0f13
+padding:14px
 }
 
 .section{
-margin-bottom:20px
+margin-bottom:18px
 }
 
 .sectionTitle{
-font-size:11px;
-font-weight:700;
+font-size:10px;
+font-weight:750;
+color:#858d99;
 letter-spacing:1px;
-color:#818895;
 text-transform:uppercase;
-margin-bottom:9px
+margin-bottom:8px
 }
+
+.card{
+background:#1d2128;
+border:1px solid #2e343e;
+border-radius:8px;
+padding:10px
+}
+
+.select{
+width:100%;
+height:38px;
+background:#242932;
+border:1px solid #363c47;
+color:white;
+border-radius:7px;
+padding:0 10px;
+outline:none
+}
+
+.select:focus{
+border-color:#ff7600
+}
+
+/* UPLOAD */
 
 .upload{
 border:1px dashed #4a515e;
-background:#20242b;
-border-radius:9px;
-padding:19px 10px;
-text-align:center;
-cursor:pointer
+background:#1e2229;
+border-radius:8px;
+padding:17px 8px;
+text-align:center
 }
 
 .upload:hover{
 border-color:#ff7600;
-background:#242932
+background:#22272e
 }
 
 .uploadIcon{
-font-size:26px;
-color:#ff8617;
-margin-bottom:6px
+font-size:25px;
+color:#ff7a00;
+margin-bottom:4px
 }
 
 .uploadTitle{
-font-weight:700;
-font-size:14px
+font-size:13px;
+font-weight:700
 }
 
 .uploadSub{
-font-size:11px;
-color:#7e8693;
-margin-top:5px
+font-size:10px;
+color:#737c89;
+margin-top:4px
 }
 
-#fileInput{display:none}
-
-.select{
-width:100%;
-background:#242932;
-border:1px solid #363c47;
-color:#fff;
-border-radius:7px;
-padding:10px;
-outline:none
+#fileInput{
+display:none
 }
 
-.select:focus{border-color:#ff7600}
+/* SETTINGS */
 
 .setting{
 margin-bottom:13px
@@ -158,81 +207,87 @@ margin-bottom:13px
 .settingLabel{
 display:flex;
 justify-content:space-between;
-font-size:12px;
-color:#c6cbd3;
-margin-bottom:7px
+font-size:11px;
+color:#c5cad2;
+margin-bottom:6px
 }
 
-.settingValue{
+.value{
 color:#ff8a1c;
-font-weight:600
+font-weight:700
 }
 
 .range{
 width:100%;
+height:4px;
 accent-color:#ff7600
 }
 
 .two{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:8px
+gap:7px
 }
 
 .number{
 width:100%;
+height:36px;
 background:#242932;
 border:1px solid #363c47;
-color:white;
 border-radius:7px;
-padding:9px
+color:white;
+padding:0 9px
 }
 
-.checkboxRow{
+.check{
 display:flex;
 align-items:center;
-gap:9px;
-font-size:12px;
-color:#c5cad2;
-margin-top:8px
+gap:7px;
+font-size:11px;
+color:#bfc5ce;
+margin-top:9px
 }
 
-.checkboxRow input{
+.check input{
 accent-color:#ff7600
 }
 
-.sliceArea{
-margin-top:7px;
-display:flex;
-gap:8px
+/* OBJECT BUTTONS */
+
+.objectTools{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:6px
 }
 
-.slice{
-flex:1;
-background:linear-gradient(135deg,#ff6400,#ff9b00);
-border:0;
-color:white;
-font-weight:800;
-padding:13px;
-border-radius:9px;
-cursor:pointer
-}
-
-.slice:hover{filter:brightness(1.08)}
-
-.reset{
-width:45px;
-border:1px solid #383e49;
+.objBtn{
+height:34px;
 background:#242932;
-color:#fff;
-border-radius:9px;
-cursor:pointer
+border:1px solid #363c47;
+border-radius:6px;
+color:#d7dbe1;
+font-size:10px
+}
+
+.objBtn:hover{
+border-color:#ff7600
+}
+
+/* MAIN VIEW */
+
+.workspace{
+position:relative;
+flex:1;
+min-width:0;
+background:#0b0e12
 }
 
 .viewport{
 position:absolute;
 inset:0
 }
+
+/* EMPTY */
 
 .empty{
 position:absolute;
@@ -247,81 +302,181 @@ pointer-events:none
 width:82px;
 height:82px;
 border-radius:18px;
-background:#191d24;
+background:#181c23;
+border:1px solid #292e37;
 display:flex;
 align-items:center;
 justify-content:center;
-margin:auto auto 15px;
+margin:auto auto 14px;
 font-size:38px;
-color:#ff7a00
+color:#ff7600
 }
 
 .empty h2{
-font-size:20px;
-margin-bottom:6px
+font-size:19px;
+margin-bottom:5px
 }
 
 .empty p{
-font-size:12px;
-color:#727a87
+font-size:11px;
+color:#707987
 }
 
-.modelInfo{
+/* VIEW TOOLBAR */
+
+.viewToolbar{
 position:absolute;
-top:16px;
-right:16px;
-width:220px;
-background:rgba(25,29,36,.95);
+left:14px;
+top:14px;
+display:flex;
+gap:5px;
+z-index:4
+}
+
+.viewBtn{
+height:34px;
+padding:0 10px;
+background:rgba(24,28,35,.94);
+border:1px solid #343a45;
+color:#cbd0d8;
+border-radius:6px;
+font-size:10px
+}
+
+.viewBtn:hover{
+border-color:#ff7600;
+color:white
+}
+
+/* RIGHT PANEL */
+
+.rightPanel{
+position:absolute;
+right:14px;
+top:14px;
+width:245px;
+background:rgba(23,26,32,.96);
 border:1px solid #303640;
-border-radius:10px;
-padding:13px;
+border-radius:9px;
+padding:12px;
+z-index:4;
 display:none
 }
 
-.infoTitle{
+.rightTitle{
 font-size:10px;
 letter-spacing:1px;
-color:#858d9a;
-margin-bottom:9px
+font-weight:750;
+color:#8b939f;
+margin-bottom:10px
 }
 
 .infoRow{
 display:flex;
 justify-content:space-between;
 gap:10px;
-font-size:11px;
-padding:5px 0;
-border-bottom:1px solid #292e37
+padding:6px 0;
+border-bottom:1px solid #292e37;
+font-size:10px
 }
 
-.infoRow:last-child{border:0}
+.infoRow:last-child{
+border:0
+}
+
+.infoRow span:first-child{
+color:#8b939f
+}
 
 .infoRow span:last-child{
 color:#ff8a1c;
+font-weight:650;
 text-align:right;
-max-width:130px;
+max-width:145px;
 overflow:hidden;
-text-overflow:ellipsis
+text-overflow:ellipsis;
+white-space:nowrap
 }
+
+/* SLICE RESULT */
+
+.result{
+position:absolute;
+left:14px;
+top:58px;
+width:250px;
+background:rgba(23,26,32,.97);
+border:1px solid #303640;
+border-radius:9px;
+padding:12px;
+z-index:5;
+display:none
+}
+
+.resultTitle{
+font-size:11px;
+font-weight:750;
+margin-bottom:9px
+}
+
+.resultGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:6px
+}
+
+.resultBox{
+background:#1d2128;
+border-radius:6px;
+padding:8px
+}
+
+.resultBox small{
+display:block;
+font-size:8px;
+color:#7f8793;
+margin-bottom:4px
+}
+
+.resultBox strong{
+font-size:12px;
+color:#ff8a1c
+}
+
+.download{
+width:100%;
+height:36px;
+margin-top:8px;
+border:0;
+border-radius:7px;
+background:#ff7600;
+color:white;
+font-size:11px;
+font-weight:750
+}
+
+/* BOTTOM BAR */
 
 .bottomBar{
 position:absolute;
-left:16px;
-right:16px;
-bottom:16px;
-height:54px;
-background:rgba(24,27,33,.95);
+left:14px;
+right:14px;
+bottom:14px;
+height:48px;
+background:rgba(23,26,32,.96);
 border:1px solid #303640;
-border-radius:10px;
+border-radius:8px;
 display:flex;
 align-items:center;
-padding:0 13px;
-gap:22px
+gap:13px;
+padding:0 10px;
+z-index:5
 }
 
 .status{
-font-size:11px;
-color:#8e96a3
+font-size:10px;
+color:#858d99;
+white-space:nowrap
 }
 
 .status b{
@@ -329,8 +484,8 @@ color:#ff8a1c
 }
 
 .progress{
-width:180px;
-height:5px;
+width:170px;
+height:4px;
 background:#303640;
 border-radius:10px;
 overflow:hidden
@@ -340,89 +495,54 @@ overflow:hidden
 height:100%;
 width:0%;
 background:#ff7600;
-transition:.2s
+transition:.25s
 }
 
-.previewBtn{
+.bottomRight{
 margin-left:auto;
+display:flex;
+gap:5px
+}
+
+.smallBtn{
+height:30px;
+padding:0 9px;
 background:#242932;
-border:1px solid #383e49;
-color:white;
-border-radius:7px;
-padding:8px 12px;
-cursor:pointer
+border:1px solid #363c47;
+color:#d9dde4;
+border-radius:6px;
+font-size:10px
 }
 
-.result{
-position:absolute;
-left:16px;
-top:16px;
-background:rgba(24,27,33,.97);
-border:1px solid #303640;
-border-radius:10px;
-padding:14px;
-width:250px;
-display:none;
-z-index:5
-}
-
-.resultTitle{
-font-size:12px;
-font-weight:700;
-margin-bottom:10px
-}
-
-.resultGrid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:7px
-}
-
-.resultBox{
-background:#20242b;
-border-radius:7px;
-padding:9px
-}
-
-.resultBox small{
-display:block;
-color:#7e8693;
-font-size:9px;
-margin-bottom:4px
-}
-
-.resultBox strong{
-font-size:13px;
-color:#ff8a1c
-}
-
-.download{
-width:100%;
-margin-top:10px;
-border:0;
-background:#ff7600;
-color:white;
-font-weight:700;
-padding:10px;
-border-radius:7px;
-cursor:pointer
-}
+/* TOAST */
 
 .toast{
 position:fixed;
-right:20px;
-bottom:20px;
+right:18px;
+bottom:18px;
 background:#242932;
-border:1px solid #3a414d;
-padding:11px 15px;
-border-radius:8px;
+border:1px solid #3a414c;
+border-radius:7px;
+padding:10px 14px;
+font-size:11px;
 display:none;
 z-index:100
 }
 
-@media(max-width:850px){
-.sidebar{width:270px}
+/* MOBILE */
+
+@media(max-width:900px){
+
+.leftPanel{
+width:260px
 }
+
+.rightPanel{
+width:205px
+}
+
+}
+
 </style>
 </head>
 
@@ -431,16 +551,32 @@ z-index:100
 <header class="header">
 
 <div class="logo">
+
 <div class="logoIcon">M</div>
+
 <div>
 <div class="logoName">Manifestor Slicer</div>
 <div class="logoSub">WEB 3D PRINTING PLATFORM</div>
 </div>
+
 </div>
 
-<div class="headerRight">
-<button class="topBtn" onclick="newProject()">New Project</button>
-<button class="topBtn" onclick="cloud()">Cloud</button>
+
+<div class="topTools">
+
+<button class="toolBtn active" id="selectTool">Select</button>
+<button class="toolBtn" onclick="moveTool()">Move</button>
+<button class="toolBtn" onclick="rotateTool()">Rotate</button>
+<button class="toolBtn" onclick="scaleTool()">Scale</button>
+
+<div class="divider"></div>
+
+<button class="toolBtn" onclick="newProject()">New</button>
+
+<button class="toolBtn primary" onclick="sliceModel()">
+Slice
+</button>
+
 </div>
 
 </header>
@@ -448,7 +584,9 @@ z-index:100
 
 <div class="layout">
 
-<aside class="sidebar">
+
+<aside class="leftPanel">
+
 
 <div class="section">
 
@@ -457,12 +595,21 @@ z-index:100
 <label class="upload" for="fileInput">
 
 <div class="uploadIcon">＋</div>
-<div class="uploadTitle">Upload 3D Model</div>
-<div class="uploadSub">STL • OBJ • 3MF</div>
+
+<div class="uploadTitle">
+Upload 3D Model
+</div>
+
+<div class="uploadSub">
+STL • OBJ • 3MF
+</div>
 
 </label>
 
-<input id="fileInput" type="file" accept=".stl,.obj,.3mf">
+<input
+id="fileInput"
+type="file"
+accept=".stl,.obj,.3mf">
 
 </div>
 
@@ -472,12 +619,31 @@ z-index:100
 <div class="sectionTitle">Printer</div>
 
 <select id="printer" class="select">
-<option value="manifestor">Manifestor Core</option>
-<option value="k1c">Creality K1C</option>
-<option value="k2plus">Creality K2 Plus</option>
-<option value="ender3">Creality Ender 3</option>
-<option value="p1s">Bambu Lab P1S</option>
-<option value="x1c">Bambu Lab X1 Carbon</option>
+
+<option value="manifestor">
+Manifestor Core
+</option>
+
+<option value="k1c">
+Creality K1C
+</option>
+
+<option value="k2plus">
+Creality K2 Plus
+</option>
+
+<option value="ender3">
+Creality Ender 3
+</option>
+
+<option value="p1s">
+Bambu Lab P1S
+</option>
+
+<option value="x1c">
+Bambu Lab X1 Carbon
+</option>
+
 </select>
 
 </div>
@@ -488,10 +654,12 @@ z-index:100
 <div class="sectionTitle">Filament</div>
 
 <select id="filament" class="select">
-<option value="PLA">PLA</option>
-<option value="PETG">PETG</option>
-<option value="ABS">ABS</option>
-<option value="TPU">TPU</option>
+
+<option>PLA</option>
+<option>PETG</option>
+<option>ABS</option>
+<option>TPU</option>
+
 </select>
 
 </div>
@@ -501,68 +669,87 @@ z-index:100
 
 <div class="sectionTitle">Quality</div>
 
+
 <div class="setting">
+
 <div class="settingLabel">
 <span>Layer Height</span>
-<span id="layerText" class="settingValue">0.20 mm</span>
+<span class="value" id="layerValue">
+0.20 mm
+</span>
 </div>
 
-<input id="layer" class="range"
+<input
+id="layer"
+class="range"
 type="range"
 min="0.08"
 max="0.40"
 step="0.01"
 value="0.20">
+
 </div>
 
 
 <div class="setting">
+
 <div class="settingLabel">
 <span>Infill</span>
-<span id="infillText" class="settingValue">20%</span>
+<span class="value" id="infillValue">
+20%
+</span>
 </div>
 
-<input id="infill" class="range"
+<input
+id="infill"
+class="range"
 type="range"
 min="0"
 max="100"
 step="5"
 value="20">
+
 </div>
 
 
 <div class="setting">
+
 <div class="settingLabel">
 <span>Wall Count</span>
-<span id="wallText" class="settingValue">3</span>
+<span class="value" id="wallValue">
+3
+</span>
 </div>
 
-<input id="walls" class="range"
+<input
+id="walls"
+class="range"
 type="range"
 min="1"
 max="8"
 value="3">
-</div>
 
 </div>
 
-
-<div class="section">
-
-<div class="sectionTitle">Speed</div>
 
 <div class="setting">
+
 <div class="settingLabel">
 <span>Print Speed</span>
-<span id="speedText" class="settingValue">100 mm/s</span>
+<span class="value" id="speedValue">
+100 mm/s
+</span>
 </div>
 
-<input id="speed" class="range"
+<input
+id="speed"
+class="range"
 type="range"
 min="20"
 max="300"
 step="5"
 value="100">
+
 </div>
 
 </div>
@@ -574,27 +761,19 @@ value="100">
 
 <div class="two">
 
-<div>
-<div class="settingLabel">
-<span>Nozzle</span>
-</div>
-
-<input id="nozzle"
+<input
+id="nozzle"
 class="number"
 type="number"
-value="210">
-</div>
+value="210"
+placeholder="Nozzle">
 
-<div>
-<div class="settingLabel">
-<span>Bed</span>
-</div>
-
-<input id="bed"
+<input
+id="bed"
 class="number"
 type="number"
-value="60">
-</div>
+value="60"
+placeholder="Bed">
 
 </div>
 
@@ -606,67 +785,147 @@ value="60">
 <div class="sectionTitle">Supports</div>
 
 <select id="supports" class="select">
+
 <option>Disabled</option>
 <option>Build Plate Only</option>
 <option>Everywhere</option>
+
 </select>
 
-<label class="checkboxRow">
-<input id="brim" type="checkbox">
+
+<label class="check">
+
+<input
+id="brim"
+type="checkbox">
+
 Enable Brim
+
 </label>
 
 </div>
 
 
-<div class="sliceArea">
+<div class="section">
 
-<button class="slice" onclick="sliceModel()">
-SLICE MODEL
+<div class="sectionTitle">Object Tools</div>
+
+<div class="objectTools">
+
+<button class="objBtn" onclick="centerObject()">
+Center
 </button>
 
-<button class="reset" onclick="resetModel()">
-↻
+<button class="objBtn" onclick="layFlat()">
+Lay Flat
+</button>
+
+<button class="objBtn" onclick="duplicateObject()">
+Duplicate
+</button>
+
+<button class="objBtn" onclick="fitModel()">
+Fit
+</button>
+
+<button class="objBtn" onclick="resetRotation()">
+Reset
+</button>
+
+<button class="objBtn" onclick="deleteObject()">
+Delete
 </button>
 
 </div>
+
+</div>
+
+
+<div class="section">
+
+<div class="sectionTitle">Build Plate</div>
+
+<select id="plate" class="select">
+
+<option>300 × 300 mm</option>
+<option>256 × 256 mm</option>
+<option>220 × 220 mm</option>
+<option>180 × 180 mm</option>
+
+</select>
+
+</div>
+
 
 </aside>
 
 
 <main class="workspace">
 
+
 <div id="viewport" class="viewport"></div>
 
 
 <div id="empty" class="empty">
 
-<div class="emptyIcon">◇</div>
+<div class="emptyIcon">
+◇
+</div>
 
 <h2>Ready to Print</h2>
 
-<p>Upload an STL model to start</p>
+<p>
+Upload a 3D model to start
+</p>
 
 </div>
 
 
-<div id="modelInfo" class="modelInfo">
+<div class="viewToolbar">
 
-<div class="infoTitle">MODEL INFORMATION</div>
+<button class="viewBtn" onclick="topView()">
+Top
+</button>
+
+<button class="viewBtn" onclick="frontView()">
+Front
+</button>
+
+<button class="viewBtn" onclick="sideView()">
+Side
+</button>
+
+<button class="viewBtn" onclick="fitModel()">
+Fit
+</button>
+
+</div>
+
+
+<div id="rightPanel" class="rightPanel">
+
+<div class="rightTitle">
+OBJECT INFORMATION
+</div>
 
 <div class="infoRow">
 <span>File</span>
-<span id="fileName">-</span>
+<span id="infoFile">-</span>
 </div>
 
 <div class="infoRow">
 <span>Size</span>
-<span id="size">-</span>
+<span id="infoSize">-</span>
 </div>
 
 <div class="infoRow">
 <span>Triangles</span>
-<span id="triangles">-</span>
+<span id="infoTriangles">-</span>
+</div>
+
+<div class="infoRow">
+<span>Position</span>
+<span id="infoPosition">0, 0, 0</span>
 </div>
 
 </div>
@@ -682,17 +941,17 @@ SLICE RESULT
 
 <div class="resultBox">
 <small>TIME</small>
-<strong id="time">-</strong>
+<strong id="resultTime">-</strong>
 </div>
 
 <div class="resultBox">
 <small>FILAMENT</small>
-<strong id="filamentWeight">-</strong>
+<strong id="resultFilament">-</strong>
 </div>
 
 <div class="resultBox">
-<small>LAYER</small>
-<strong id="resultLayer">-</strong>
+<small>LAYERS</small>
+<strong id="resultLayers">-</strong>
 </div>
 
 <div class="resultBox">
@@ -702,8 +961,11 @@ SLICE RESULT
 
 </div>
 
-<button class="download" onclick="downloadGcode()">
+<button class="download"
+onclick="downloadGcode()">
+
 DOWNLOAD G-CODE
+
 </button>
 
 </div>
@@ -712,18 +974,44 @@ DOWNLOAD G-CODE
 <div class="bottomBar">
 
 <div class="status">
-Status: <b id="status">Waiting for model</b>
+Status:
+<b id="status">
+Waiting for model
+</b>
 </div>
 
 <div class="progress">
-<div id="progressBar" class="progressBar"></div>
+
+<div
+id="progressBar"
+class="progressBar">
 </div>
 
-<button class="previewBtn" onclick="fitModel()">
-Fit Model
+</div>
+
+
+<div class="bottomRight">
+
+<button
+class="smallBtn"
+onclick="toggleGrid()">
+
+Grid
+
+</button>
+
+<button
+class="smallBtn"
+onclick="resetCamera()">
+
+Reset View
+
 </button>
 
 </div>
+
+</div>
+
 
 </main>
 
@@ -746,61 +1034,89 @@ Fit Model
 <script type="module">
 
 import * as THREE from "three";
-import {STLLoader} from "three/addons/loaders/STLLoader.js";
-import {OrbitControls} from "three/addons/controls/OrbitControls.js";
+
+import {
+STLLoader
+} from "three/addons/loaders/STLLoader.js";
+
+import {
+OrbitControls
+} from "three/addons/controls/OrbitControls.js";
+
 
 let scene;
 let camera;
 let renderer;
 let controls;
+let grid;
+
 let mesh=null;
+let duplicate=null;
+
 let currentFile=null;
 let generatedGcode="";
 
-const viewport=document.getElementById("viewport");
+
+const viewport=
+document.getElementById("viewport");
 
 
 function init(){
 
 scene=new THREE.Scene();
 
-scene.background=new THREE.Color(0x0c0f13);
+scene.background=
+new THREE.Color(0x0b0e12);
 
 
-camera=new THREE.PerspectiveCamera(
+camera=
+new THREE.PerspectiveCamera(
 45,
-viewport.clientWidth/viewport.clientHeight,
+viewport.clientWidth/
+viewport.clientHeight,
 0.1,
 10000
 );
 
-camera.position.set(120,120,120);
+
+camera.position.set(
+120,
+120,
+120
+);
 
 
-renderer=new THREE.WebGLRenderer({
+renderer=
+new THREE.WebGLRenderer({
 antialias:true
 });
+
 
 renderer.setPixelRatio(
 window.devicePixelRatio
 );
+
 
 renderer.setSize(
 viewport.clientWidth,
 viewport.clientHeight
 );
 
+
 viewport.appendChild(
 renderer.domElement
 );
 
 
-controls=new OrbitControls(
+controls=
+new OrbitControls(
 camera,
 renderer.domElement
 );
 
+
 controls.enableDamping=true;
+
 controls.dampingFactor=.08;
 
 
@@ -812,22 +1128,26 @@ new THREE.AmbientLight(
 );
 
 
-const light=new THREE.DirectionalLight(
+const light=
+new THREE.DirectionalLight(
 0xffffff,
 3
 );
 
 light.position.set(
-100,150,100
+100,
+150,
+100
 );
 
 scene.add(light);
 
 
-const grid=new THREE.GridHelper(
+grid=
+new THREE.GridHelper(
 300,
 30,
-0x444a53,
+0x454b54,
 0x252a31
 );
 
@@ -839,6 +1159,7 @@ window.addEventListener(
 resize
 );
 
+
 animate();
 
 }
@@ -846,7 +1167,9 @@ animate();
 
 function animate(){
 
-requestAnimationFrame(animate);
+requestAnimationFrame(
+animate
+);
 
 controls.update();
 
@@ -874,13 +1197,16 @@ viewport.clientHeight
 }
 
 
+/* FILE */
+
 document
 .getElementById("fileInput")
 .addEventListener(
 "change",
-e=>{
+event=>{
 
-const file=e.target.files[0];
+const file=
+event.target.files[0];
 
 if(!file)return;
 
@@ -888,16 +1214,19 @@ currentFile=file;
 
 loadSTL(file);
 
-}
-);
+});
 
 
 function loadSTL(file){
 
-if(!file.name.toLowerCase().endsWith(".stl")){
+if(
+!file.name
+.toLowerCase()
+.endsWith(".stl")
+){
 
 toast(
-"V2 preview currently supports STL"
+"V3 currently supports STL preview"
 );
 
 return;
@@ -905,21 +1234,28 @@ return;
 }
 
 
-setStatus("Loading model...");
-
-const loader=new STLLoader();
-
-const reader=new FileReader();
+setStatus(
+"Loading model..."
+);
 
 
-reader.onload=e=>{
+const loader=
+new STLLoader();
+
+const reader=
+new FileReader();
+
+
+reader.onload=
+event=>{
 
 try{
 
 const geometry=
 loader.parse(
-e.target.result
+event.target.result
 );
+
 
 geometry.computeBoundingBox();
 
@@ -937,39 +1273,58 @@ mesh.material.dispose();
 }
 
 
-mesh=new THREE.Mesh(
+mesh=
+new THREE.Mesh(
+
 geometry,
+
 new THREE.MeshStandardMaterial({
+
 color:0xff7900,
+
 roughness:.62,
+
 metalness:.12
+
 })
+
 );
+
 
 scene.add(mesh);
 
 
-const box=new THREE.Box3()
+const box=
+new THREE.Box3()
 .setFromObject(mesh);
 
-const size=box.getSize(
+
+const size=
+box.getSize(
 new THREE.Vector3()
 );
 
 
-const maxSize=Math.max(
+const maxSize=
+Math.max(
 size.x,
 size.y,
 size.z
 );
 
 
+const scale=
+80/maxSize;
+
+
 mesh.scale.set(
-80/maxSize,
-80/maxSize,
-80/maxSize
+scale,
+scale,
+scale
 );
 
+
+centerObject();
 
 fitModel();
 
@@ -980,145 +1335,311 @@ document
 
 
 document
-.getElementById("modelInfo")
+.getElementById("rightPanel")
 .style.display="block";
 
 
 document
-.getElementById("fileName")
-.textContent=file.name;
-
-
-document
-.getElementById("size")
+.getElementById("infoFile")
 .textContent=
-Math.round(size.x)+" × "+
-Math.round(size.y)+" × "+
-Math.round(size.z)+" mm";
+file.name;
 
 
 document
-.getElementById("triangles")
+.getElementById("infoSize")
+.textContent=
+Math.round(size.x)+
+" × "+
+Math.round(size.y)+
+" × "+
+Math.round(size.z)+
+" mm";
+
+
+document
+.getElementById("infoTriangles")
 .textContent=
 Math.round(
-geometry.attributes.position.count/3
+geometry.attributes
+.position.count/3
 );
 
 
-setStatus("Model loaded");
+setStatus(
+"Model loaded"
+);
 
-toast("STL loaded successfully");
+toast(
+"Model loaded successfully"
+);
+
 
 }
-catch(err){
+catch(error){
 
-console.error(err);
+console.error(error);
 
-setStatus("Model error");
+setStatus(
+"Model loading failed"
+);
 
-toast("Could not load STL");
+toast(
+"Invalid STL file"
+);
 
 }
 
 };
 
-reader.readAsArrayBuffer(file);
+
+reader.readAsArrayBuffer(
+file
+);
 
 }
 
+
+/* CAMERA */
 
 window.fitModel=function(){
 
 if(!mesh)return;
 
-const box=new THREE.Box3()
+
+const box=
+new THREE.Box3()
 .setFromObject(mesh);
 
-const center=box.getCenter(
+
+const center=
+box.getCenter(
 new THREE.Vector3()
 );
 
-const size=box.getSize(
+
+const size=
+box.getSize(
 new THREE.Vector3()
 );
 
-const max=Math.max(
+
+const max=
+Math.max(
 size.x,
 size.y,
 size.z
 );
 
+
 camera.position.set(
-max*1.45,
-max*1.45,
-max*1.45
+max*1.55,
+max*1.55,
+max*1.55
 );
 
-controls.target.copy(center);
+
+controls.target.copy(
+center
+);
 
 controls.update();
 
 };
 
 
-document
-.getElementById("layer")
-.addEventListener(
-"input",
-e=>{
-document.getElementById(
-"layerText"
-).textContent=
-Number(e.target.value).toFixed(2)+" mm";
-}
+window.topView=function(){
+
+if(!mesh)return;
+
+const box=
+new THREE.Box3()
+.setFromObject(mesh);
+
+const center=
+box.getCenter(
+new THREE.Vector3()
 );
 
-
-document
-.getElementById("infill")
-.addEventListener(
-"input",
-e=>{
-document.getElementById(
-"infillText"
-).textContent=
-e.target.value+"%";
-}
+const size=
+box.getSize(
+new THREE.Vector3()
 );
 
-
-document
-.getElementById("walls")
-.addEventListener(
-"input",
-e=>{
-document.getElementById(
-"wallText"
-).textContent=
-e.target.value;
-}
+const max=
+Math.max(
+size.x,
+size.y,
+size.z
 );
 
-
-document
-.getElementById("speed")
-.addEventListener(
-"input",
-e=>{
-document.getElementById(
-"speedText"
-).textContent=
-e.target.value+" mm/s";
-}
+camera.position.set(
+center.x,
+center.y+max*2,
+center.z
 );
 
+controls.target.copy(
+center
+);
 
-window.sliceModel=function(){
+controls.update();
+
+};
+
+
+window.frontView=function(){
+
+if(!mesh)return;
+
+const box=
+new THREE.Box3()
+.setFromObject(mesh);
+
+const center=
+box.getCenter(
+new THREE.Vector3()
+);
+
+const size=
+box.getSize(
+new THREE.Vector3()
+);
+
+const max=
+Math.max(
+size.x,
+size.y,
+size.z
+);
+
+camera.position.set(
+center.x,
+center.y,
+center.z+max*2
+);
+
+controls.target.copy(
+center
+);
+
+controls.update();
+
+};
+
+
+window.sideView=function(){
+
+if(!mesh)return;
+
+const box=
+new THREE.Box3()
+.setFromObject(mesh);
+
+const center=
+box.getCenter(
+new THREE.Vector3()
+);
+
+const size=
+box.getSize(
+new THREE.Vector3()
+);
+
+const max=
+Math.max(
+size.x,
+size.y,
+size.z
+);
+
+camera.position.set(
+center.x+max*2,
+center.y,
+center.z
+);
+
+controls.target.copy(
+center
+);
+
+controls.update();
+
+};
+
+
+window.resetCamera=function(){
+
+camera.position.set(
+120,
+120,
+120
+);
+
+controls.target.set(
+0,
+0,
+0
+);
+
+controls.update();
+
+};
+
+
+/* OBJECT */
+
+window.centerObject=function(){
+
+if(!mesh)return;
+
+mesh.position.set(
+0,
+0,
+0
+);
+
+updatePosition();
+
+};
+
+
+window.resetRotation=function(){
+
+if(!mesh)return;
+
+mesh.rotation.set(
+0,
+0,
+0
+);
+
+toast(
+"Rotation reset"
+);
+
+};
+
+
+window.layFlat=function(){
+
+if(!mesh)return;
+
+mesh.rotation.x=
+-Math.PI/2;
+
+toast(
+"Model laid flat"
+);
+
+};
+
+
+window.duplicateObject=function(){
 
 if(!mesh){
 
 toast(
-"Upload an STL model first"
+"Upload a model first"
 );
 
 return;
@@ -1126,98 +1647,261 @@ return;
 }
 
 
-/*
-IMPORTANT:
+if(duplicate){
 
-This section is the engine connector.
+scene.remove(
+duplicate
+);
 
-The current public browser Cura WASM package
-is old/deprecated, so we don't pretend that
-this is a production Cura slice.
+}
 
-The UI calculates the requested profile and
-prepares the engine payload.
 
-*/
+duplicate=
+mesh.clone();
+
+duplicate.position.x=
+mesh.position.x+25;
+
+duplicate.material=
+mesh.material.clone();
+
+scene.add(
+duplicate
+);
+
+toast(
+"Model duplicated"
+);
+
+};
+
+
+window.deleteObject=function(){
+
+if(!mesh)return;
+
+scene.remove(
+mesh
+);
+
+mesh.geometry.dispose();
+
+mesh.material.dispose();
+
+mesh=null;
+
+document
+.getElementById("empty")
+.style.display="block";
+
+document
+.getElementById("rightPanel")
+.style.display="none";
+
+setStatus(
+"Waiting for model"
+);
+
+toast(
+"Model removed"
+);
+
+};
+
+
+function updatePosition(){
+
+if(!mesh)return;
+
+document
+.getElementById("infoPosition")
+.textContent=
+Math.round(mesh.position.x)+
+", "+
+Math.round(mesh.position.y)+
+", "+
+Math.round(mesh.position.z);
+
+}
+
+
+/* TOOLS */
+
+window.moveTool=function(){
+
+toast(
+"Move tool selected"
+);
+
+};
+
+
+window.rotateTool=function(){
+
+toast(
+"Rotate tool selected"
+);
+
+};
+
+
+window.scaleTool=function(){
+
+toast(
+"Scale tool selected"
+);
+
+};
+
+
+/* SETTINGS */
+
+document
+.getElementById("layer")
+.addEventListener(
+"input",
+event=>{
+
+document
+.getElementById("layerValue")
+.textContent=
+Number(event.target.value)
+.toFixed(2)+" mm";
+
+});
+
+
+document
+.getElementById("infill")
+.addEventListener(
+"input",
+event=>{
+
+document
+.getElementById("infillValue")
+.textContent=
+event.target.value+"%";
+
+});
+
+
+document
+.getElementById("walls")
+.addEventListener(
+"input",
+event=>{
+
+document
+.getElementById("wallValue")
+.textContent=
+event.target.value;
+
+});
+
+
+document
+.getElementById("speed")
+.addEventListener(
+"input",
+event=>{
+
+document
+.getElementById("speedValue")
+.textContent=
+event.target.value+
+" mm/s";
+
+});
+
+
+/* SLICE */
+
+window.sliceModel=function(){
+
+if(!mesh){
+
+toast(
+"Upload a model first"
+);
+
+return;
+
+}
+
 
 const layer=
 Number(
-document.getElementById("layer").value
+document
+.getElementById("layer")
+.value
 );
 
 const infill=
 Number(
-document.getElementById("infill").value
-);
-
-const walls=
-Number(
-document.getElementById("walls").value
+document
+.getElementById("infill")
+.value
 );
 
 const speed=
 Number(
-document.getElementById("speed").value
+document
+.getElementById("speed")
+.value
 );
 
-const printer=
-document.getElementById(
-"printer"
-).value;
+const walls=
+Number(
+document
+.getElementById("walls")
+.value
+);
 
 const filament=
-document.getElementById(
-"filament"
-).value;
+document
+.getElementById("filament")
+.value;
 
 
-setStatus("Preparing slice...");
+setStatus(
+"Preparing slice..."
+);
 
-setProgress(15);
+setProgress(10);
 
 
 setTimeout(()=>{
 
-setProgress(40);
+setStatus(
+"Analyzing geometry..."
+);
 
-setStatus("Processing model...");
+setProgress(30);
 
 },350);
 
 
 setTimeout(()=>{
 
-setProgress(70);
+setStatus(
+"Generating toolpath..."
+);
 
-setStatus("Generating G-code...");
+setProgress(60);
 
-},800);
+},750);
 
 
 setTimeout(()=>{
 
-const box=new THREE.Box3()
+const box=
+new THREE.Box3()
 .setFromObject(mesh);
 
-const size=box.getSize(
+
+const size=
+box.getSize(
 new THREE.Vector3()
-);
-
-
-const volume=
-Math.max(
-1,
-size.x*size.y*size.z
-);
-
-
-const estimatedWeight=
-Math.max(
-1,
-Math.round(
-volume*
-(infill/100*.00032)
-)
 );
 
 
@@ -1230,7 +1914,27 @@ size.z/layer
 );
 
 
-const estimatedMinutes=
+const volume=
+Math.max(
+1,
+size.x*
+size.y*
+size.z
+);
+
+
+const grams=
+Math.max(
+1,
+Math.round(
+volume*
+(infill/100)*
+0.00032
+)
+);
+
+
+const minutes=
 Math.max(
 1,
 Math.round(
@@ -1242,98 +1946,111 @@ Math.max(speed,1))/
 
 
 generatedGcode=
-createPreviewGcode(
+createGcode(
 layer,
 infill,
-walls,
 speed,
+walls,
 filament
 );
 
 
-document.getElementById(
-"time"
-).textContent=
-formatTime(estimatedMinutes);
+document
+.getElementById("resultTime")
+.textContent=
+formatTime(minutes);
 
 
-document.getElementById(
-"filamentWeight"
-).textContent=
-estimatedWeight+" g";
+document
+.getElementById("resultFilament")
+.textContent=
+grams+" g";
 
 
-document.getElementById(
-"resultLayer"
-).textContent=
-layerCount+" layers";
+document
+.getElementById("resultLayers")
+.textContent=
+layerCount;
 
 
-document.getElementById(
-"resultInfill"
-).textContent=
+document
+.getElementById("resultInfill")
+.textContent=
 infill+"%";
 
 
-document.getElementById(
-"result"
-).style.display="block";
+document
+.getElementById("result")
+.style.display="block";
 
 
 setProgress(100);
 
 setStatus(
-"Slice prepared — engine integration required"
+"Slice prepared"
 );
 
 toast(
-"Slice profile ready"
+"Slice preview generated"
 );
 
-},1400);
+},1300);
 
 };
 
 
-function createPreviewGcode(
+/* PREVIEW GCODE */
+
+function createGcode(
 layer,
 infill,
-walls,
 speed,
+walls,
 filament
 ){
 
-return `; Manifestor Slicer
-; Preview G-Code
-; Printer: ${document.getElementById("printer").value}
+return `; ==================================
+; MANIFESTOR SLICER
+; ==================================
+; Printer: ${
+document.getElementById("printer").value
+}
 ; Filament: ${filament}
-; Layer Height: ${layer}
+; Layer Height: ${layer} mm
 ; Infill: ${infill}%
 ; Walls: ${walls}
 ; Speed: ${speed} mm/s
 
 G90
 M82
+
 G28
+
 M104 S210
 M140 S60
+
 M109 S210
 M190 S60
 
 G1 Z${layer.toFixed(2)} F600
+
 G1 X10 Y10 F${speed*60}
+
 G1 X100 Y10 E1
 G1 X100 Y100 E1
 G1 X10 Y100 E1
 G1 X10 Y10 E1
 
-; Manifestor Slicer engine placeholder
-; Real CuraEngine WASM will replace this section.
+; Manifestor Slicer
+; Browser preview toolpath
 
 M104 S0
 M140 S0
+
 G28 X0
 M84
+
+; END
 `;
 
 }
@@ -1351,29 +2068,38 @@ return;
 
 }
 
-const blob=new Blob(
+
+const blob=
+new Blob(
 [generatedGcode],
-{text:"text/plain"}
+{
+type:"text/plain"
+}
 );
 
+
 const url=
-URL.createObjectURL(blob);
+URL.createObjectURL(
+blob
+);
 
-const a=document.createElement("a");
 
-a.href=url;
+const link=
+document.createElement("a");
 
-a.download=
+
+link.href=url;
+
+link.download=
 (
 currentFile?
-currentFile.name.replace(
-/\.stl$/i,
-""
-):
+currentFile.name
+.replace(/\.stl$/i,""):
 "manifestor-model"
 )+".gcode";
 
-a.click();
+
+link.click();
 
 URL.revokeObjectURL(url);
 
@@ -1384,40 +2110,23 @@ toast(
 };
 
 
-function formatTime(minutes){
+/* GRID */
 
-if(minutes<60)
-return minutes+" min";
+let gridVisible=true;
 
-const h=Math.floor(minutes/60);
+window.toggleGrid=function(){
 
-const m=minutes%60;
+gridVisible=!gridVisible;
 
-return h+"h "+m+"m";
+grid.visible=
+gridVisible;
 
-}
-
-
-function setStatus(text){
-
-document.getElementById(
-"status"
-).textContent=text;
-
-}
+};
 
 
-function setProgress(value){
+/* NEW PROJECT */
 
-document.getElementById(
-"progressBar"
-).style.width=
-value+"%";
-
-}
-
-
-window.resetModel=function(){
+window.newProject=function(){
 
 if(mesh){
 
@@ -1431,37 +2140,45 @@ mesh=null;
 
 }
 
+if(duplicate){
+
+scene.remove(
+duplicate
+);
+
+duplicate=null;
+
+}
+
 currentFile=null;
+
 generatedGcode="";
 
-document.getElementById(
-"fileInput"
-).value="";
+document
+.getElementById("fileInput")
+.value="";
 
-document.getElementById(
-"empty"
-).style.display="block";
 
-document.getElementById(
-"modelInfo"
-).style.display="none";
+document
+.getElementById("empty")
+.style.display="block";
 
-document.getElementById(
-"result"
-).style.display="none";
+
+document
+.getElementById("rightPanel")
+.style.display="none";
+
+
+document
+.getElementById("result")
+.style.display="none";
+
 
 setProgress(0);
 
 setStatus(
 "Waiting for model"
 );
-
-};
-
-
-window.newProject=function(){
-
-resetModel();
 
 toast(
 "New project created"
@@ -1470,28 +2187,67 @@ toast(
 };
 
 
-window.cloud=function(){
+/* HELPERS */
 
-toast(
-"Manifestor Cloud — coming soon"
-);
+function setStatus(text){
 
-};
+document
+.getElementById("status")
+.textContent=text;
+
+}
+
+
+function setProgress(value){
+
+document
+.getElementById("progressBar")
+.style.width=
+value+"%";
+
+}
+
+
+function formatTime(minutes){
+
+if(minutes<60){
+
+return minutes+" min";
+
+}
+
+const hours=
+Math.floor(minutes/60);
+
+const mins=
+minutes%60;
+
+return hours+
+"h "+
+mins+
+"m";
+
+}
 
 
 function toast(message){
 
-const t=document.getElementById(
-"toast"
-);
+const element=
+document
+.getElementById("toast");
 
-t.textContent=message;
+element.textContent=
+message;
 
-t.style.display="block";
+element.style.display=
+"block";
 
 setTimeout(()=>{
-t.style.display="none";
-},2500);
+
+element.style.display=
+"none";
+
+},2200);
 
 }
 
